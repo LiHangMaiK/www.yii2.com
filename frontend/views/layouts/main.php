@@ -28,33 +28,55 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'My Company',
+        'brandLabel' => Yii::t('common',"MinMin's Blog"),
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
+    $leftItems = [
+        ['label' => Yii::t('common','Home'), 'url' => ['/site/index']],
+        ['label' => Yii::t('common','Article'), 'url' => ['/article/index']],
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+        $rightItems[] = ['label' => Yii::t('common','Signup'), 'url' => ['/site/signup']];
+        $rightItems[] = ['label' => Yii::t('common','Login'), 'url' => ['/site/login']];
     } else {
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
-            . '</li>';
+//        $rightItems[] = '<li>'
+//            . Html::beginForm(['/site/logout'], 'post')
+//            . Html::submitButton(
+//                '<img src="static/images/avatar/myAvatar.jpg" alt='.Yii::$app->user->identity->username.'>',
+//                ['class' => 'btn btn-link logout']
+//            )
+//            . Html::endForm()
+//            . '</li>';
+        $rightItems[] = [
+            'label' => '<img src="/static/images/avatar/myAvatar.jpg" alt='.Yii::$app->user->identity->username.'>',
+            'linkOptions' => ['class' => 'avatar'],
+            'items' => [
+                [
+                    'label' => Yii::t('common','Logout'),
+                    'url'   => ['/site/logout'],
+                    'linkOptions' => ['data-method' => 'post']
+                ],
+                [
+                    'label' => Yii::t('common','personal center'),
+                    'url'   => '#',
+                    'linkOptions' => ['data-method' => 'post']
+                ],
+                //多个item
+                //...
+            ],
+        ];
     }
     echo Nav::widget([
+        'options' => ['class' => 'navbar-nav navbar-left'],
+        'items' => $leftItems,
+    ]);
+    echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => $menuItems,
+        'encodeLabels' => false, //标签不会被编码解释，可以输出html。
+        'items' => $rightItems,
     ]);
     NavBar::end();
     ?>

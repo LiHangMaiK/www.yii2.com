@@ -1,8 +1,9 @@
 <?php
-namespace common\models;
+namespace frontend\models;
 
 use Yii;
 use yii\base\Model;
+use common\models\UserModel;
 
 /**
  * Login form
@@ -31,6 +32,15 @@ class LoginForm extends Model
         ];
     }
 
+    //配置中文，两种方法，页面配置也可。
+    public function attributeLabels()
+    {
+        return [
+            'username' => Yii::t('common','username'),
+            'password' => Yii::t('common','password'),
+        ];
+    }
+
     /**
      * Validates the password.
      * This method serves as the inline validation for password.
@@ -43,7 +53,7 @@ class LoginForm extends Model
         if (!$this->hasErrors()) {
             $user = $this->getUser();
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
+                $this->addError($attribute, Yii::t('common','Incorrect username or password.'));
             }
         }
     }
@@ -70,7 +80,7 @@ class LoginForm extends Model
     protected function getUser()
     {
         if ($this->_user === null) {
-            $this->_user = User::findByUsername($this->username);
+            $this->_user = UserModel::findByUsername($this->username);
         }
 
         return $this->_user;
