@@ -1,4 +1,7 @@
 <?php
 return [
-    'adminEmail' => '541425845@qq.com',
+    'adminEmail' => 'lwins123@qq.com',
+    'avatar'     => [
+        'small'  => '/static/images/avatar/myAvatar.jpg',
+    ],
 ];

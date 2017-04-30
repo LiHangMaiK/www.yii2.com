@@ -51,16 +51,16 @@ AppAsset::register($this);
 //            . Html::endForm()
 //            . '</li>';
         $rightItems[] = [
-            'label' => '<img src="/static/images/avatar/myAvatar.jpg" alt='.Yii::$app->user->identity->username.'>',
+            'label' => '<img src='.Yii::$app->params['avatar']['small'].' alt='.Yii::$app->user->identity->username.'>',
             'linkOptions' => ['class' => 'avatar'],
             'items' => [
                 [
-                    'label' => Yii::t('common','Logout'),
+                    'label' => '<i class="fa fa-sign-out"></i> '.Yii::t('common','Logout'),
                     'url'   => ['/site/logout'],
                     'linkOptions' => ['data-method' => 'post']
                 ],
                 [
-                    'label' => Yii::t('common','personal center'),
+                    'label' => '<i class="fa fa-user-circle-o"></i> '.Yii::t('common','personal center'),
                     'url'   => '#',
                     'linkOptions' => ['data-method' => 'post']
                 ],
@@ -92,9 +92,9 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
+        <p class="pull-left">&copy; My Blog <?= date('Y') ?></p>
+        <p class="pull-right"><?= Yii::$app->params['adminEmail'] ?></p>
+<!--        <p class="pull-right">--><?//= Yii::powered() ?><!--</p>-->
     </div>
 </footer>
 
