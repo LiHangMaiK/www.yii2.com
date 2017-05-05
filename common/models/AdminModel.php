@@ -53,11 +53,42 @@ class AdminModel extends ActiveRecord implements IdentityInterface
         return [
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            [['username', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at'], 'required'],
+            [['role', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['username', 'password_hash', 'password_reset_token', 'email_validate_token', 'email', 'avatar'], 'string', 'max' => 255],
+            [['auth_key'], 'string', 'max' => 32],
+            [['username'], 'unique'],
+            [['email'], 'unique'],
+//            [['password_reset_token'], 'unique'],
         ];
     }
 
     /**
      * @inheritdoc
+     */
+//    public function attributeLabels()
+//    {
+//        return [
+//            'id' => 'ID',
+//            'username' => '用户名',
+//            'auth_key' => '自动登录key',
+//            'password_hash' => '加密密码',
+//            'password_reset_token' => '重置密码token',
+//            'email_validate_token' => '邮箱验证token',
+//            'email' => '邮箱',
+//            'role' => '角色等级',
+//            'status' => '状态',
+//            'avatar' => '头像',
+//            'created_at' => '创建时间',
+//            'updated_at' => '修改时间',
+//        ];
+//    }
+
+    /******************以下是继承IdentityInterface类所需要实现的几个抽象方法。***************/
+
+    /**
+     * @inheritdoc
+     * 根据userModel表的主键（id）获取用户
      */
     public static function findIdentity($id)
     {
@@ -66,11 +97,41 @@ class AdminModel extends ActiveRecord implements IdentityInterface
 
     /**
      * @inheritdoc
+     * 根据access_token获取用户，我们暂时先不实现，我们在文章 http://www.manks.top/yii2-restful-api.html 有过实现。
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
         throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
     }
+
+    /**
+     * @inheritdoc
+     * 用以标识 Yii::$app->user->id 的返回值
+     */
+    public function getId()
+    {
+        return $this->getPrimaryKey();
+    }
+
+    /**
+     * @inheritdoc
+     * 获取auth_key
+     */
+    public function getAuthKey()
+    {
+        return $this->auth_key;
+    }
+
+    /**
+     * @inheritdoc
+     * 验证auth_key
+     */
+    public function validateAuthKey($authKey)
+    {
+        return $this->getAuthKey() === $authKey;
+    }
+
+    /*************************************end*********************************************/
 
     /**
      * Finds user by username
@@ -118,29 +179,6 @@ class AdminModel extends ActiveRecord implements IdentityInterface
         return $timestamp + $expire >= time();
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function getId()
-    {
-        return $this->getPrimaryKey();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getAuthKey()
-    {
-        return $this->auth_key;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function validateAuthKey($authKey)
-    {
-        return $this->getAuthKey() === $authKey;
-    }
 
     /**
      * Validates password

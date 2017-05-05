@@ -21,11 +21,11 @@ $fieldOptions2 = [
 
 <div class="login-box">
     <div class="login-logo">
-        <a href="#"><b>Admin</b>LTE</a>
+        <a href="#"><b><?= Yii::t('common','MinMin\'s Blog') ?></b><?= Yii::t('common','Background Management') ?></a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
-        <p class="login-box-msg">Sign in to start your session</p>
+        <p class="login-box-msg"><?= Yii::t('common','Sign in to start your session') ?></p>
 
         <?php $form = ActiveForm::begin(['id' => 'login-form', 'enableClientValidation' => false]); ?>
 
@@ -45,7 +45,7 @@ $fieldOptions2 = [
             </div>
             <!-- /.col -->
             <div class="col-xs-4">
-                <?= Html::submitButton('Sign in', ['class' => 'btn btn-primary btn-block btn-flat', 'name' => 'login-button']) ?>
+                <?= Html::submitButton(Yii::t('common','Sign in'), ['class' => 'btn btn-primary btn-block btn-flat', 'name' => 'login-button']) ?>
             </div>
             <!-- /.col -->
         </div>
@@ -54,10 +54,10 @@ $fieldOptions2 = [
         <?php ActiveForm::end(); ?>
 
         <div class="social-auth-links text-center">
-            <p>- OR -</p>
-            <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in
+            <p>- <?= Yii::t('common','OR') ?> -</p>
+            <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-qq"></i> Sign in
                 using Facebook</a>
-            <a href="#" class="btn btn-block btn-social btn-google-plus btn-flat"><i class="fa fa-google-plus"></i> Sign
+            <a href="#" class="btn btn-block btn-social btn-google-plus btn-flat"><i class="fa fa-weibo"></i> Sign
                 in using Google+</a>
         </div>
         <!-- /.social-auth-links -->

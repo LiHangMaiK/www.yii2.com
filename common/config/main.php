@@ -34,5 +34,11 @@ return [
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>'
             ],
         ],
+        //authManager有PhpManager和DbManager两种方式,
+        //PhpManager将权限关系保存在文件里,这里使用的是DbManager方式,将权限关系保存在数据库.
+        //RBAC权限管理模块
+        "authManager" => [
+            "class" => 'yii\rbac\DbManager',
+        ],
     ],
 ];

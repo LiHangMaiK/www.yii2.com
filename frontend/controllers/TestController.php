@@ -13,8 +13,9 @@ use yii\web\Controller;
 
 class TestController extends Controller
 {
+
     public function actionIndex()
     {
-
+        echo strtotime('2017-05-04 07:06:00');
     }
 }

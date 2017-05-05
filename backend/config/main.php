@@ -17,7 +17,7 @@ return [
             'csrfParam' => '_csrf-backend',
         ],
         'user' => [
-            'identityClass' => 'common\models\UserModel',
+            'identityClass' => 'common\models\AdminModel',
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
         ],
@@ -45,6 +45,7 @@ return [
             ],
         ],
         */
+        //后台adminLTE主题模块配置
         'assetManager' => [
             'bundles' => [
                 'dmstr\web\AdminLteAsset' => [
