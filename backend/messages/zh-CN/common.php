@@ -15,6 +15,7 @@ return [
     'Signup'                                          => '注册',
     'Login'                                           => '登录',
     'Sign in'                                         => '登录',
+    'Sign In'                                         => '登录',
     'Logout'                                          => '退出',
     'username'                                        => '用户名',
     'password'                                        => '密码',

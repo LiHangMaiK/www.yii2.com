@@ -6,7 +6,7 @@ use yii\bootstrap\ActiveForm;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \common\models\LoginForm */
 
-$this->title = 'Sign In';
+$this->title = Yii::t('common','Sign In');
 
 $fieldOptions1 = [
     'options' => ['class' => 'form-group has-feedback'],
@@ -53,17 +53,15 @@ $fieldOptions2 = [
 
         <?php ActiveForm::end(); ?>
 
-        <div class="social-auth-links text-center">
+        <div class="other-login text-center">
             <p>- <?= Yii::t('common','OR') ?> -</p>
-            <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-qq"></i> Sign in
-                using Facebook</a>
-            <a href="#" class="btn btn-block btn-social btn-google-plus btn-flat"><i class="fa fa-weibo"></i> Sign
-                in using Google+</a>
+            <a href="#"><i class="fa fa-qq fa-2x"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="#"><i class="fa fa-weibo fa-2x"></i></a>
         </div>
         <!-- /.social-auth-links -->
 
-        <a href="#">I forgot my password</a><br>
-        <a href="register.html" class="text-center">Register a new membership</a>
+<!--        <a href="#">--><?//= Yii::t('common','I forgot my password') ?><!--</a><br>-->
+<!--        <a href="register.html" class="text-center">Register a new membership</a>-->
 
     </div>
     <!-- /.login-box-body -->
