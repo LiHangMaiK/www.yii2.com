@@ -34,11 +34,20 @@ return [
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>'
             ],
         ],
+
         //authManager有PhpManager和DbManager两种方式,
         //PhpManager将权限关系保存在文件里,这里使用的是DbManager方式,将权限关系保存在数据库.
-        //RBAC权限管理模块
+        //RBAC权限管理模块开启
         "authManager" => [
             "class" => 'yii\rbac\DbManager',
+            "defaultRoles" => ["guest"],
+        ],
+        //自定义全局类(common\components)
+        //yii::$app->helper->property;
+        'helper' => [
+            'class' => 'common\components\Helper',
+            //自定义属性，如：
+//            'property' => '123',
         ],
     ],
 ];

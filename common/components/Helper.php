@@ -6,16 +6,16 @@
  * Time: 15:23
  */
 
-namespace common\components\helper;
+namespace common\components;
 
-class MyHelper
+class Helper
 {
     public static function MyPrint($result)
     {
         echo '<pre>';print_r($result);exit();
     }
 
-    public static function MyVardump($result)
+    public static function MyVarDump($result)
     {
         var_dump($result);exit();
     }

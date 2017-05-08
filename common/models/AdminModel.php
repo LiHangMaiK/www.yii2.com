@@ -85,6 +85,7 @@ class AdminModel extends ActiveRecord implements IdentityInterface
 //    }
 
     /******************以下是继承IdentityInterface类所需要实现的几个抽象方法。***************/
+    //用于后台管理员表的实现，需要配置User组件
 
     /**
      * @inheritdoc

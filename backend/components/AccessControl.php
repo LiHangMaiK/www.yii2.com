@@ -28,7 +28,7 @@ class AccessControl extends ActionFilter
         // 当前登录用户的id
         $user = Yii::$app->getUser();
         $userId = $user->id;
-        $this->denyAccess($user);
+
         // 获取当前用户已经分配过的路由权限
         // 写的比较简单，有过基础的可自行完善，比如解决"*"的问题，看不懂的该行注释自行忽略
         $routes = [];

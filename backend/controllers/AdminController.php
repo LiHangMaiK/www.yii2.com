@@ -50,9 +50,11 @@ class AdminController extends Controller
             //行为的定义，RBAC权限控制基于此行为，每次进入此控制器，都会执行行为类的beforeAction方法。
 //            'Behavior' => \backend\components\Behavior::className(),
 
-            'AccessControl' => [
-                'class' => 'backend\components\AccessControl',
-            ],
+        //一个简单的自定义RBAC
+//            'AccessControl' => [
+//                'class' => 'backend\components\AccessControl',
+//            ],
+
             //设置访问的请求类型，delete方法只允许POST请求
             'verbs' => [
                 'class' => VerbFilter::className(),

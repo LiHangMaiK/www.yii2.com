@@ -11,6 +11,7 @@ namespace backend\controllers;
 use Yii;
 use yii\web\Controller;
 
+//此类为RBAC权限管理初始化类，用yii2-admin模块就不需要此类了。
 class RbacController extends Controller
 {
 
