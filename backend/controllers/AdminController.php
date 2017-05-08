@@ -9,6 +9,7 @@ use backend\models\SignupForm;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * AdminController implements the CRUD actions for AdminModel model.
@@ -21,6 +22,8 @@ class AdminController extends Controller
     public function behaviors()
     {
         return [
+
+            //access为简单的ACF权限管理
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
@@ -43,6 +46,13 @@ class AdminController extends Controller
 //                    ],
                 ],
             ],
+
+            //行为的定义，RBAC权限控制基于此行为，每次进入此控制器，都会执行行为类的beforeAction方法。
+//            'Behavior' => \backend\components\Behavior::className(),
+
+            'AccessControl' => [
+                'class' => 'backend\components\AccessControl',
+            ],
             //设置访问的请求类型，delete方法只允许POST请求
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -59,6 +69,16 @@ class AdminController extends Controller
      */
     public function actionIndex()
     {
+
+        //此方法简单，但是方法多了就不行，要用行为来解决。
+//        if (!Yii::$app->user->can('/admin/index')) {
+//            throw new \yii\web\ForbiddenHttpException("没权限访问.");
+//        }
+        //此控制器通过上面behaviors方法重写的Behavior行为，跟\backend\components\Behavior类绑定了，可以调用行为类的方法。
+//        $myBehavior = $this->getBehavior('myBehavior');
+//        $isGuest = $myBehavior->isGuest();
+//        var_dump($isGuest);
+
         $searchModel = new AdminSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -85,18 +105,18 @@ class AdminController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
-        $model = new AdminModel();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
-    }
+//    public function actionCreate()
+//    {
+//        $model = new AdminModel();
+//
+//        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+//            return $this->redirect(['view', 'id' => $model->id]);
+//        } else {
+//            return $this->render('create', [
+//                'model' => $model,
+//            ]);
+//        }
+//    }
 
     public function actionSignup()
     {
