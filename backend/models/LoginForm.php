@@ -1,6 +1,7 @@
 <?php
 namespace backend\models;
 
+use common\components\Helper;
 use Yii;
 use yii\base\Model;
 use common\models\AdminModel;
@@ -56,7 +57,7 @@ class LoginForm extends Model
         if (!$this->hasErrors()) {
             $admin = $this->getAdmin();
             if (!$admin || !$admin->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
+                $this->addError($attribute, Yii::t('common','Incorrect username or password.'));
             }
         }
     }

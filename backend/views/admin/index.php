@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel common\models\AdminSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Admin Models';
+$this->title = '管理员列表';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="admin-model-index">
@@ -27,13 +27,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'username',
-            'auth_key',
-            'password_hash',
-            'password_reset_token',
-            // 'email_validate_token:email',
+//            'auth_key',
+//            'password_hash',
+//            'password_reset_token',
+//            'email_validate_token:email',
              'email:email',
-             'role',
-            // 'status',
+//             'role',
+             'status',
             // 'avatar',
              'created_at',
              'updated_at',

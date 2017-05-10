@@ -3,8 +3,9 @@ return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     //配置语言
     'language' => 'zh-CN', //使用哪种语言包，默认英文，搭配i18n用。
+//    'language' => 'en-US', //使用哪种语言包，默认英文，搭配i18n用。
     //配置时区
-    'timeZone'=>'Asia/Chongqing',
+    'timeZone' => 'Asia/Chongqing',
     'components' => [
         //缓存配置
         'cache' => [
