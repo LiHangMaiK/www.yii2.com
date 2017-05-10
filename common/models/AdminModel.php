@@ -24,7 +24,7 @@ use yii\web\IdentityInterface;
 class AdminModel extends ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = 0;
-    const STATUS_ACTIVE = 10;
+    const STATUS_ACTIVE = 1;
 
 
     /**
@@ -66,23 +66,23 @@ class AdminModel extends ActiveRecord implements IdentityInterface
     /**
      * @inheritdoc
      */
-//    public function attributeLabels()
-//    {
-//        return [
-//            'id' => 'ID',
-//            'username' => '用户名',
-//            'auth_key' => '自动登录key',
-//            'password_hash' => '加密密码',
-//            'password_reset_token' => '重置密码token',
-//            'email_validate_token' => '邮箱验证token',
-//            'email' => '邮箱',
-//            'role' => '角色等级',
-//            'status' => '状态',
-//            'avatar' => '头像',
-//            'created_at' => '创建时间',
-//            'updated_at' => '修改时间',
-//        ];
-//    }
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'username' => '用户名',
+            'auth_key' => '自动登录key',
+            'password_hash' => '加密密码',
+            'password_reset_token' => '重置密码token',
+            'email_validate_token' => '邮箱验证token',
+            'email' => '邮箱',
+            'role' => '角色等级',
+            'status' => '状态',
+            'avatar' => '头像',
+            'created_at' => '创建时间',
+            'updated_at' => '修改时间',
+        ];
+    }
 
     /******************以下是继承IdentityInterface类所需要实现的几个抽象方法。***************/
     //用于后台管理员表的实现，需要配置User组件

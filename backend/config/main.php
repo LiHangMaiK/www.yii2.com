@@ -10,6 +10,7 @@ return [
     'id' => 'app-backend',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
+    'defaultRoute' => 'site/index',
     'bootstrap' => ['log'],
     //自定义模块，加入了三方的RBAC模块
     'modules' => [
