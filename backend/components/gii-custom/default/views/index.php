@@ -15,6 +15,8 @@ echo "<?php\n";
 use yii\helpers\Html;
 use <?= $generator->indexWidgetType === 'grid' ? "yii\\grid\\GridView" : "yii\\widgets\\ListView" ?>;
 <?= $generator->enablePjax ? 'use yii\widgets\Pjax;' : '' ?>
+use yii\bootstrap\Modal;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 <?= !empty($generator->searchModelClass) ? "/* @var \$searchModel " . ltrim($generator->searchModelClass, '\\') . " */\n" : '' ?>
@@ -31,7 +33,12 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php endif; ?>
 
     <p>
-        <?= "<?= " ?>Html::a(<?= $generator->generateString('Create ' . Inflector::camel2words(StringHelper::basename($generator->modelClass))) ?>, ['create'], ['class' => 'btn btn-success']) ?>
+        <?= "<?= " ?>Html::a(<?= $generator->generateString('Create ' . Inflector::camel2words(StringHelper::basename($generator->modelClass))) ?>, ['create'], [
+        'class' => 'btn btn-success',
+        'id' => 'create',
+        'data-toggle' => 'modal',
+        'data-target' => '#operate-modal',
+        ]) ?>
     </p>
 <?= $generator->enablePjax ? '<?php Pjax::begin(); ?>' : '' ?>
 <?php if ($generator->indexWidgetType === 'grid'): ?>
@@ -62,7 +69,33 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
 }
 ?>
 
-            ['class' => 'yii\grid\ActionColumn'],
+    [
+        'class' => 'yii\grid\ActionColumn',
+        'template' => '{update}  {delete}',
+        'header' => '操作',
+        'buttons' => [
+            'update' => function ($url, $model, $key) {
+                return Html::a("信息", $url, [
+                    'title' => '栏目信息',
+                    // btn-update 目标class
+                    'class' => 'btn btn-default btn-update',
+                    'data-toggle' => 'modal',
+                    'data-target' => '#operate-modal',
+                ]);
+            },
+            'delete' => function ($url, $model, $key) {
+                return Html::a('删除', $url, [
+                    'title' => '删除',
+                    'class' => 'btn btn-default',
+                    'data' => [
+                        'confirm' => '确定要删除么?',
+                        'method' => 'post',
+                    ],
+                ]);
+            },
+        ],
+
+    ],
         ],
     ]); ?>
 <?php else: ?>
@@ -76,3 +109,46 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
 <?php endif; ?>
 <?= $generator->enablePjax ? '<?php Pjax::end(); ?>' : '' ?>
 </div>
+
+<?= "<?php" ?>
+
+// 创建modal
+Modal::begin([
+'id' => 'operate-modal',
+'header' => '<h4 class="modal-title"></h4>',
+]);
+
+Modal::end();
+
+
+// 创建
+$requestCreateUrl = Url::toRoute('create');
+
+// 更新
+$requestUpdateUrl = Url::toRoute('update');
+
+$js = <<<JS
+
+// 创建操作
+$('#create').on('click', function () {
+    $('.modal-title').html('创建');
+    $.get('{$requestCreateUrl}',
+        function (data) {
+            $('.modal-body').html(data);
+        }
+    );
+});
+
+// 更新操作
+$('.btn-update').on('click', function () {
+    $('.modal-title').html('信息');
+    $.get('{$requestUpdateUrl}', { id: $(this).closest('tr').data('key') },
+        function (data) {
+            $('.modal-body').html(data);
+        }
+    );
+});
+JS;
+$this->registerJs($js);
+
+?>

@@ -39,6 +39,7 @@ use yii\data\ActiveDataProvider;
 use <?= ltrim($generator->baseControllerClass, '\\') ?>;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Url;
 
 /**
  * <?= $controllerClass ?> implements the CRUD actions for <?= $modelClass ?> model.
@@ -107,12 +108,23 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
         $model = new <?= $modelClass ?>();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', <?= $urlParams ?>]);
+            return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
             ]);
         }
+    }
+
+    /**
+     * 异步校验表单模型
+     */
+    public function actionValidateForm ()
+    {
+        $model = new <?= $modelClass ?>();
+        $model->load(Yii::$app->request->post());
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return \yii\widgets\ActiveForm::validate($model);
     }
 
     /**
@@ -126,7 +138,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
         $model = $this->findModel(<?= $actionParams ?>);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', <?= $urlParams ?>]);
+            return $this->redirect(Url::toRoute('index'));
         } else {
             return $this->render('update', [
                 'model' => $model,

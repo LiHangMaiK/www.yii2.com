@@ -28,10 +28,10 @@ return [
         //路由配置
         'urlManager' => [
             'enablePrettyUrl' => true,
-            'showScriptName' => false,
+            'showScriptName' => false,//是否显示脚本名（index.php）
 //            'suffix' => '.html',
             'rules' => [
-                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+                '<controller:\w+>/<action:\w+>/<page:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>'
             ],
         ],
