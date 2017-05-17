@@ -8,14 +8,15 @@
 
 namespace console\controllers;
 
-use yii;
-use yii\web\Controller;
+use yii\console\Controller;
 
 class CronController extends Controller
 {
-    public function index()
+
+    public function actionIndex($name)
     {
-        echo 123444;
-        return 0;
+        echo "hello {$name}";
+
+        return self::EXIT_CODE_NORMAL;
     }
 }
