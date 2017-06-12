@@ -53,11 +53,11 @@ $fieldOptions2 = [
 
         <?php ActiveForm::end(); ?>
 
-        <div class="other-login text-center">
-            <p>- <?= Yii::t('common','OR') ?> -</p>
-            <a href="#"><i class="fa fa-qq fa-2x"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="#"><i class="fa fa-weibo fa-2x"></i></a>
-        </div>
+<!--        <div class="other-login text-center">-->
+<!--            <p>- --><?//= Yii::t('common','OR') ?><!-- -</p>-->
+<!--            <a href="#"><i class="fa fa-qq fa-2x"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+<!--            <a href="#"><i class="fa fa-weibo fa-2x"></i></a>-->
+<!--        </div>-->
         <!-- /.social-auth-links -->
 
 <!--        <a href="#">--><?//= Yii::t('common','I forgot my password') ?><!--</a><br>-->

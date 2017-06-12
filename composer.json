@@ -19,14 +19,17 @@
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0",
         "jpgraph/jpgraph": "~4.0.2",
-        "dmstr/yii2-adminlte-asset": "2.*"
+        "dmstr/yii2-adminlte-asset": "2.*",
+        "mdmsoft/yii2-admin": "~2.0",
+        "kartik-v/yii2-field-range": "*",
+        "kartik-v/yii2-widget-datetimepicker": "*",
+        "kartik-v/yii2-widget-datepicker": "@dev"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
         "yiisoft/yii2-gii": "~2.0.0",
 
         "yiisoft/yii2-faker": "~2.0.0",
-
         "codeception/base": "^2.2.3",
         "codeception/verify": "~0.3.1"
     },

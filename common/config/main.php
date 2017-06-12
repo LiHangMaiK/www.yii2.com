@@ -3,8 +3,9 @@ return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     //配置语言
     'language' => 'zh-CN', //使用哪种语言包，默认英文，搭配i18n用。
+//    'language' => 'en-US', //使用哪种语言包，默认英文，搭配i18n用。
     //配置时区
-    'timeZone'=>'Asia/Chongqing',
+    'timeZone' => 'Asia/Chongqing',
     'components' => [
         //缓存配置
         'cache' => [
@@ -27,18 +28,27 @@ return [
         //路由配置
         'urlManager' => [
             'enablePrettyUrl' => true,
-            'showScriptName' => false,
+            'showScriptName' => false,//是否显示脚本名（index.php）
 //            'suffix' => '.html',
             'rules' => [
-                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+                '<controller:\w+>/<action:\w+>/<page:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>'
             ],
         ],
+
         //authManager有PhpManager和DbManager两种方式,
         //PhpManager将权限关系保存在文件里,这里使用的是DbManager方式,将权限关系保存在数据库.
-        //RBAC权限管理模块
+        //RBAC权限管理模块开启
         "authManager" => [
             "class" => 'yii\rbac\DbManager',
+            "defaultRoles" => ["guest"],
+        ],
+        //自定义全局类(common\components)
+        //yii::$app->helper->property;
+        'helper' => [
+            'class' => 'common\components\Helper',
+            //自定义属性，如：
+//            'property' => '123',
         ],
     ],
 ];
