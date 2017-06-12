@@ -18,8 +18,8 @@ class AdminSearch extends AdminModel
     public function rules()
     {
         return [
-            [['id', 'role', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email_validate_token', 'email', 'avatar'], 'safe'],
+            [['id', 'status'], 'integer'],
+            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email_validate_token', 'email', 'avatar', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -60,7 +60,6 @@ class AdminSearch extends AdminModel
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'role' => $this->role,
             'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
