@@ -1,6 +1,6 @@
 <?php
 use mdm\admin\components\MenuHelper;
-use dmstr\widgets\Menu;
+use backend\components\Menu;
 ?>
 <aside class="main-sidebar">
 

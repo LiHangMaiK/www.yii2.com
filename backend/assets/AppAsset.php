@@ -18,6 +18,7 @@ class AppAsset extends AssetBundle
     //全局JS
     public $js = [
     ];
+    //依赖文件，先引入下面这些文件再引入全局文件
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
