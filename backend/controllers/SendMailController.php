@@ -4,6 +4,10 @@
  * User: maikuraki
  * Date: 2017/6/20
  * Time: 0:23
+ *
+ * 发送邮件的测试控制器，其他控制器遵循此方法，就可以方便的发邮件
+ * 用事件来发送邮件
+ *
  */
 
 namespace backend\controllers;
