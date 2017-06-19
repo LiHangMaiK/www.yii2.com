@@ -110,7 +110,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
         } else {
-            return $this->render('create', [
+            return $this->renderAjax('create', [
                 'model' => $model,
             ]);
         }
@@ -140,7 +140,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(Url::toRoute('index'));
         } else {
-            return $this->render('update', [
+            return $this->renderAjax('update', [
                 'model' => $model,
             ]);
         }

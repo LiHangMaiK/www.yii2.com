@@ -5,7 +5,8 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\helpers\Html;
 /**
- * Class Menu
+ * 左侧导航栏类
+ * 自定义导航栏，同一个控制器的所有方法都支持高亮
  * Theme menu widget.
  */
 class Menu extends \yii\widgets\Menu

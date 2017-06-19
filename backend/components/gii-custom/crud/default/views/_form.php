@@ -28,9 +28,9 @@ use yii\helpers\Url;
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-form">
 
     <?= "<?php " ?>$form = ActiveForm::begin([
-    'id' => '<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-id',
-    'enableAjaxValidation' => true,
-    'validationUrl' => Url::toRoute(['validate-form']),
+        'id' => '<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-id',
+        'enableAjaxValidation' => true,
+        'validationUrl' => Url::toRoute(['validate-form']),
     ]); ?>
 
 <?php foreach ($generator->getColumnNames() as $attribute) {

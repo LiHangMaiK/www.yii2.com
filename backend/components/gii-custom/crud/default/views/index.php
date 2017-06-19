@@ -94,7 +94,6 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
                 ]);
             },
         ],
-
     ],
         ],
     ]); ?>
