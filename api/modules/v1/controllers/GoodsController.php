@@ -6,11 +6,5 @@ use yii\rest\ActiveController;
 
 class GoodsController extends ActiveController
 {
-    public $modelClass = 'common\models\Goods';
-
-//    public function actionIndex()
-//    {
-//        return $this->render('index');
-//    }
-
+    public $modelClass = 'api\models\Goods';
 }
