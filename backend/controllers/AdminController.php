@@ -32,7 +32,7 @@ class AdminController extends Controller
                         'actions' => ['index', 'view', 'create', 'update', 'delete', 'signup'],
                         // 设置actions的操作是允许访问还是拒绝访问
                         'allow' => true,
-                        // @ 当前规则针对认证过的用户; ? 所有方可均可访问
+                        // @ 当前规则针对认证过的用户; ? 所有人均可访问
                         'roles' => ['@'],
                     ],
                     //只允许userId为1的管理员访问update方法。
