@@ -25,16 +25,6 @@ return [
                 ],
             ],
         ],
-        //路由配置
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,//是否显示脚本名（index.php）
-//            'suffix' => '.html',
-            'rules' => [
-                '<controller:\w+>/<action:\w+>/<page:\d+>' => '<controller>/<action>',
-                '<controller:\w+>/<action:\w+>' => '<controller>/<action>'
-            ],
-        ],
 
         //authManager有PhpManager和DbManager两种方式,
         //PhpManager将权限关系保存在文件里,这里使用的是DbManager方式,将权限关系保存在数据库.
