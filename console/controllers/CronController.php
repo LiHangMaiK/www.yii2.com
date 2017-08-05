@@ -13,6 +13,11 @@ use yii\console\Controller;
 class CronController extends Controller
 {
 
+    /**
+     * 计划任务可以写在这,利用crontab或者其他定时任务工具执行此方法
+     * @param string $name
+     * @return int
+     */
     public function actionIndex($name='')
     {
         if($name){

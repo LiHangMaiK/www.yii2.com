@@ -36,7 +36,7 @@ return [
         //自定义全局类(common\components)
         //yii::$app->helper->property;
         'helper' => [
-            'class' => 'common\components\Helper',
+            'class' => 'common\components\PrintHelper',
             //自定义属性，如：
 //            'property' => '123',
         ],

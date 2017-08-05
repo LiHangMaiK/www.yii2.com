@@ -19,7 +19,7 @@ class AdminSearch extends AdminModel
     {
         return [
             [['id', 'status'], 'integer'],
-            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email_validate_token', 'email', 'avatar', 'created_at', 'updated_at'], 'safe'],
+            [['username', 'auth_key', 'password_hash', 'email', 'avatar', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -68,8 +68,6 @@ class AdminSearch extends AdminModel
         $query->andFilterWhere(['like', 'username', $this->username])
             ->andFilterWhere(['like', 'auth_key', $this->auth_key])
             ->andFilterWhere(['like', 'password_hash', $this->password_hash])
-            ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
-            ->andFilterWhere(['like', 'email_validate_token', $this->email_validate_token])
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'avatar', $this->avatar]);
 
