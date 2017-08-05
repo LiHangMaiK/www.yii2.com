@@ -21,8 +21,8 @@ return [
         //配置后台管理员映射数据库哪张表(AdminModel)
         'user' => [
             'identityClass' => 'common\models\AdminModel',
-//            'enableAutoLogin' => true,//开启自动登录，AdminModel中要实现一些接口。
-//            'identityCookie' => ['name' => '_identity-api', 'httpOnly' => true],
+            'enableAutoLogin' => true,//开启自动登录，AdminModel中要实现一些接口。
+            'enableSession'=>false
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -43,11 +43,10 @@ return [
             'rules' => [
                 [
                 'class' => 'yii\rest\UrlRule',
-                'controller' => ['goods']
-                ],
-                [
-                'class' => 'yii\rest\UrlRule',
                 'controller' => ['v1/goods']
+//                'extraPatterns' => [
+//                    'POST modify/<id:\d+>' => 'modify',
+//                    ]
                 ],
             ]
         ]
