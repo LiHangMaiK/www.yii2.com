@@ -33,8 +33,9 @@ return [
                 ],
             ],
         ],
+        //404页面
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'v1/default/error',
         ],
         //restfulAPI路由管理
         'urlManager' => [

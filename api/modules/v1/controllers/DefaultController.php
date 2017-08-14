@@ -17,4 +17,12 @@ class DefaultController extends Controller
     {
         return $this->render('index');
     }
+
+    /**
+     * 错误方法
+     */
+    public function actionError()
+    {
+
+    }
 }
