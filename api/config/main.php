@@ -36,6 +36,7 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        //restfulAPI路由管理
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
