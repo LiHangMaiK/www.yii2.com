@@ -20,7 +20,7 @@ return [
     'components' => [
         //配置后台管理员映射数据库哪张表(AdminModel)
         'user' => [
-            'identityClass' => 'common\models\AdminModel',
+            'identityClass' => 'common\models\UserModel',
             'enableAutoLogin' => true,//开启自动登录，AdminModel中要实现一些接口。
             'enableSession'=>false
         ],
@@ -42,14 +42,32 @@ return [
             'enableStrictParsing' =>true,
             'rules' => [
                 [
-                'class' => 'yii\rest\UrlRule',
-                'controller' => ['v1/goods']
-//                'extraPatterns' => [
-//                    'POST modify/<id:\d+>' => 'modify',
-//                    ]
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => [
+                        'v1/goods',
+                        'v1/users'
+                    ],
+                    'extraPatterns' => [
+                        'POST login' => 'login',
+                        'GET signup-test' => 'signup-test',
+                        'GET user-test' => 'user-test'
+                    ]
                 ],
             ]
-        ]
+        ],
+        //设置服务端返回格式为json格式，固定。
+        'response' => [
+            'class' => 'yii\web\Response',
+            'on beforeSend' => function ($event) {
+                $response = $event->sender;
+                $response->data = [
+                    'code' => $response->getStatusCode(),
+                    'data' => $response->data,
+                    'msg' => $response->statusText
+                ];
+                $response->format = yii\web\Response::FORMAT_JSON;
+            },
+        ],
     ],
     'params' => $params,
 ];

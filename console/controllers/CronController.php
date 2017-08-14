@@ -21,9 +21,9 @@ class CronController extends Controller
     public function actionIndex($name='')
     {
         if($name){
-            echo "hello {$name}";
+            echo "hello {$name}\n";
         }else{
-            echo "hello guest";
+            echo "hello guest\n";
         }
         //返回的值为0，shell写法中exit(0)表示程序正常执行成功
         return self::EXIT_CODE_NORMAL;

@@ -6,6 +6,7 @@ use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
+use yii\filters\RateLimitInterface;
 
 /**
  * User model
@@ -21,7 +22,7 @@ use yii\web\IdentityInterface;
  * @property integer $updated_at
  * @property string $password write-only password
  */
-class UserModel extends ActiveRecord implements IdentityInterface
+class UserModel extends ActiveRecord implements IdentityInterface, RateLimitInterface
 {
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
@@ -69,7 +70,8 @@ class UserModel extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
+//        throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
+        return static::findOne(['access_token' => $token, 'status' => self::STATUS_ACTIVE]);
     }
 
     /**
@@ -186,4 +188,50 @@ class UserModel extends ActiveRecord implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+
+    /******************************API接口实现*****************************************/
+
+    /**
+     * 生成 api_token
+     */
+    public function generateApiToken()
+    {
+        $this->access_token = Yii::$app->security->generateRandomString() . '_' . time();
+    }
+
+    /**
+     * 校验access_token是否有效,登录时,自己校验时间有效性,
+     */
+    public function apiTokenIsValid($token)
+    {
+        if (!$token) {
+            return false;//代表没有token值,返回false去生成token
+        }
+
+        $timestamp = (int) substr($token, strrpos($token, '_') + 1);
+        $expire = Yii::$app->params['user.apiTokenExpire'];//此params在config目录下的params.php文件中配置
+        return $timestamp + $expire >= time();//返回token的创建时间+有效期是否超过当前时间，大于说明还未过期,返回true
+    }
+
+
+
+    /************************速率限制*********************************/
+
+    // 返回某一时间允许请求的最大数量，比如设置10秒内最多5次请求（小数量方便我们模拟测试）
+    public  function getRateLimit($request, $action){
+        return [1, 10];
+    }
+
+    // 返回剩余的允许的请求和相应的UNIX时间戳数 当最后一次速率限制检查时
+    public  function loadAllowance($request, $action){
+        return [$this->allowance, $this->allowance_updated_at];
+    }
+
+    // 保存允许剩余的请求数和当前的UNIX时间戳
+    public  function saveAllowance($request, $action, $allowance, $timestamp){
+        $this->allowance = $allowance;
+        $this->allowance_updated_at = $timestamp;
+        $this->save();
+    }
+
 }
