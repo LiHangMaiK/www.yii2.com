@@ -10,7 +10,7 @@ return [
     'id' => 'app-api',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'api\controllers',
-    'defaultRoute' => 'site/index',
+    'defaultRoute' => 'v1/default/index',
     //添加版本模块
     'modules' => [
         'v1' => [
@@ -41,7 +41,7 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'enableStrictParsing' =>true,
+            // 'enableStrictParsing' =>true,
             'rules' => [
                 [
                     'class' => 'yii\rest\UrlRule',
