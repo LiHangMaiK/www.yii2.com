@@ -36,6 +36,12 @@ class WechatsController extends ActiveController
      * 处理接收到的消息
      */
     private function reponseMsg(){
+        //1.获取到微信推送过来的POST数据(xml格式),注意不是普通POST数据，而是元数据,要用$GLOBALS['HTTP_RAW_POST_DATA']接收。
+        //yii2默认POST是要经过CSRF验证的，这里微信不会带CSRF的cookie，所以要先禁用CSRF。
+        $postArr = yii::$app->request->getRawBody();
+
+        //2.处理消息类型，并设置回复类型和内容
+
         exit;
     }
 
@@ -52,7 +58,7 @@ class WechatsController extends ActiveController
 
         //验证传入参数
         if($this->checkSignature($timestamp,$nonce,$signature)){
-            echo $echoStr ? $echoStr : '';//是否第一次
+            echo $echoStr ? $echoStr : '';//是否第一次验证
             return TRUE;
         }
         exit();
