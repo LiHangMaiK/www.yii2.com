@@ -14,7 +14,7 @@ use yii\rest\ActiveController;
 /**
  * Wechat controller for the `v1` module
  */
-class WechatController extends ActiveController
+class WechatsController extends ActiveController
 {
     public $modelClass = '';
 

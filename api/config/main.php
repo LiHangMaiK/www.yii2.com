@@ -48,7 +48,7 @@ return [
                     'controller' => [
                         'v1/users',
                         'v1/goods',
-                        'v1/wechat'
+                        'v1/wechats'
                     ],
                     'extraPatterns' => [
                         'GET error'         => 'error',
