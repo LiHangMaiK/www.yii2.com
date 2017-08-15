@@ -36,7 +36,7 @@ class WechatsController extends ActiveController
      * 处理接收到的消息
      */
     private function reponseMsg(){
-        
+        exit;
     }
 
     /**
