@@ -46,13 +46,16 @@ return [
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => [
+                        'v1/users',
                         'v1/goods',
-                        'v1/users'
+                        'v1/wechat'
                     ],
                     'extraPatterns' => [
-                        'POST login' => 'login',
-                        'GET signup-test' => 'signup-test',
-                        'GET user-test' => 'user-test'
+                        'GET error'         => 'error',
+                        'POST login'        => 'login',
+                        'GET signup-test'   => 'signup-test',
+                        'GET user-test'     => 'user-test',
+                        'GET valid'         => 'valid',
                     ]
                 ],
             ]
