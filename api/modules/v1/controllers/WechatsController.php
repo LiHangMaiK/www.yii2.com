@@ -16,12 +16,33 @@ use yii\rest\ActiveController;
  */
 class WechatsController extends ActiveController
 {
+
     public $modelClass = '';
 
     /**
-     * 微信验证方法
+     * 微信入口
      */
-    public function actionValid()
+    public function actionWechatAccess(){
+
+        //1.验证微信请求
+        $this->valid();
+
+        //2.处理接收到的微信请求
+        $this->reponseMsg();
+
+    }
+
+    /**
+     * 处理接收到的消息
+     */
+    private function reponseMsg(){
+        
+    }
+
+    /**
+     * 判断请求是否来自微信
+     */
+    private function valid()
     {
         //1.将timestamo,nonce,token按字典序排序
         $nonce      = yii::$app->request->get('nonce');     //随机字符串
@@ -29,14 +50,22 @@ class WechatsController extends ActiveController
         $signature  = yii::$app->request->get('signature'); //服务端加密后的字符串,用来比对
         $echoStr    = yii::$app->request->get('echostr');   //验证通过后需要输出的字符串
 
-        //验证请求是否来自微信
+        //验证传入参数
         if($this->checkSignature($timestamp,$nonce,$signature)){
-            echo $echoStr;
+            echo $echoStr ? $echoStr : '';//是否第一次
+            return TRUE;
         }
-
         exit();
     }
 
+    /**
+     * 验证参数是否一致
+     *
+     * @param $timestamp
+     * @param $nonce
+     * @param $signature
+     * @return bool
+     */
     private function checkSignature($timestamp,$nonce,$signature){
 
         $token      = yii::$app->params['wechat']['token']; //微信服务端和本地都商量好的token

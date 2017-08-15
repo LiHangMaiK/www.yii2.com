@@ -10,7 +10,7 @@ return [
     'id' => 'app-api',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'api\controllers',
-    'defaultRoute' => 'v1/default/index',
+    'defaultRoute' => 'v1/wechats/wechat-access',
     //添加版本模块
     'modules' => [
         'v1' => [
@@ -54,8 +54,7 @@ return [
                         'GET error'         => 'error',
                         'POST login'        => 'login',
                         'GET signup-test'   => 'signup-test',
-                        'GET user-test'     => 'user-test',
-                        'GET valid'         => 'valid',
+                        'GET user-test'     => 'user-test'
                     ]
                 ],
             ]
