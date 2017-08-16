@@ -8,7 +8,6 @@
 
 namespace api\modules\v1\controllers;
 
-use yii;
 use yii\rest\ActiveController;
 use api\models\ApiWechatsModel;
 
@@ -17,22 +16,21 @@ use api\models\ApiWechatsModel;
  */
 class WechatsController extends ActiveController
 {
-
     public $modelClass = '';
 
     /**
-     * 微信入口
+     * 微信消息入口
      */
     public function actionWechatAccess()
     {
+        //创建模型
         $Wechats = new ApiWechatsModel();
 
         //1.验证微信请求
         $Wechats->valid();
 
         //2.处理接收到的微信请求
-        $Wechats->reponseMsg();
-
+        $Wechats->responseMsg();
     }
 
 
