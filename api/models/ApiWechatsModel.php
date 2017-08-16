@@ -39,6 +39,7 @@ class ApiWechatsModel extends WechatsModel
         //1.获取到微信推送过来的POST数据(xml格式),注意不是普通POST数据，而是元数据,要用$GLOBALS['HTTP_RAW_POST_DATA']接收。
         //yii2默认POST是要经过CSRF验证的，这里微信不会带CSRF的cookie，所以要先禁用CSRF。
         $postArr = yii::$app->request->getRawBody();
+        //解析xml成对象
         $postObj = simplexml_load_string($postArr);
         //2.处理消息类型，并设置回复类型和内容
         switch (strtolower($postObj->MsgType)){
@@ -70,7 +71,8 @@ class ApiWechatsModel extends WechatsModel
     }
 
     /**
-     * 关注/取消关注事件
+     * 订阅/取消订阅事件
+     * 判断具体事件来进行操作
      */
     private function reponseForEvent($postObj)
     {
@@ -81,9 +83,9 @@ class ApiWechatsModel extends WechatsModel
             case 'unsubscribe':
                 $this->unSubscribe($postObj);//取消订阅事件
                 break;
-            case 'LOCATION':
-                $this->location($postObj);//上报地理位置事件
-                break;
+//            case 'LOCATION':
+//                $this->location($postObj);//上报地理位置事件
+//                break;
         }
     }
 
@@ -99,7 +101,6 @@ class ApiWechatsModel extends WechatsModel
      */
     private function subscribe($postObj)
     {
-        // file_put_contents('123.txt', $postObj->FromUserName);echo 'success';exit;
         //回复消息
         $toUser     = $postObj->FromUserName;
         $fromUser   = $postObj->ToUserName;
@@ -127,21 +128,35 @@ class ApiWechatsModel extends WechatsModel
     }
 
     /**
+     * 文本消息
+     */
+    private function reponseForText($postObj)
+    {
+        //回复消息
+        $toUser     = $postObj->FromUserName;
+        $fromUser   = $postObj->ToUserName;
+        $createTime = time();
+        $msgType    = 'text';
+        $content    = '我的微博：http://weibo.com/yangmifansblog';
+
+        $template   = '<xml>
+                        <ToUserName><![CDATA[%s]]></ToUserName>
+                        <FromUserName><![CDATA[%s]]></FromUserName>
+                        <CreateTime>%s</CreateTime>
+                        <MsgType><![CDATA[%s]]></MsgType>
+                        <Content><![CDATA[%s]]></Content>
+                        </xml>';
+        $info       = sprintf($template,$toUser,$fromUser,$createTime,$msgType,$content);
+        echo $info;exit;
+    }
+
+    /**
      * 上报地理位置事件
      */
     private function location()
     {
         throw new NotSupportedException('"reponseForText" is not implemented.');
     }
-
-    /**
-     * 文本消息
-     */
-    private function reponseForText()
-    {
-        throw new NotSupportedException('"reponseForText" is not implemented.');
-    }
-
 
     /**
      * 验证参数是否一致

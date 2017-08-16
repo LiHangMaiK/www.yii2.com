@@ -26,6 +26,7 @@ class WechatsController extends ActiveController
     public function actionWechatAccess()
     {
         $Wechats = new ApiWechatsModel();
+
         //1.验证微信请求
         $Wechats->valid();
 
