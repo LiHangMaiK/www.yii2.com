@@ -99,6 +99,7 @@ class ApiWechatsModel extends WechatsModel
      */
     private function subscribe($postObj)
     {
+        // file_put_contents('123.txt', $postObj->FromUserName);echo 'success';exit;
         //回复消息
         $toUser     = $postObj->FromUserName;
         $fromUser   = $postObj->ToUserName;
@@ -113,7 +114,7 @@ class ApiWechatsModel extends WechatsModel
                         <MsgType><![CDATA[%s]]></MsgType>
                         <Content><![CDATA[%s]]></Content>
                         </xml>';
-        $info       = sprintf($template,$toUser,$fromUser,$createTime,$msgType.$content);
+        $info       = sprintf($template,$toUser,$fromUser,$createTime,$msgType,$content);
         echo $info;exit;
     }
 
