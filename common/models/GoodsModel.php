@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "blog_goods".
@@ -10,7 +11,7 @@ use Yii;
  * @property integer $id
  * @property string $name
  */
-class GoodsModel extends \yii\db\ActiveRecord
+class GoodsModel extends ActiveRecord
 {
     /**
      * @inheritdoc
