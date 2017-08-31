@@ -31,13 +31,17 @@ class ApiWechatsModel extends WechatsModel
         $timestamp  = yii::$app->request->get('timestamp'); //时间戳
         $signature  = yii::$app->request->get('signature'); //服务端加密后的字符串,用来比对
         $echoStr    = yii::$app->request->get('echostr');   //验证通过后需要输出的字符串
-
+        
+        if(!$nonce || !$timestamp || !$signature){
+            file_put_contents('request_error.txt', $nonce.PHP_EOL.$timestamp.PHP_EOL.$signature);
+            echo 'success';exit();
+        }
+        
         //2.验证传入参数
         if($this->checkSignature($timestamp,$nonce,$signature)){
             echo $echoStr ? $echoStr : '';//是否第一次验证
             return TRUE;
         }
-
         throw new \yii\web\ForbiddenHttpException;//验证失败
     }
 
@@ -116,8 +120,7 @@ class ApiWechatsModel extends WechatsModel
         $event                  = new TextEvent();
         $event->toUserName      = $postObj->FromUserName;
         $event->fromUserName    = $postObj->ToUserName;
-        $event->content         = '123';
-//        $event->content         = '我的微博：http://weibo.com/yangmifansblog';
+        $event->content         = '我的微博：http://weibo.com/yangmifansblog';
 
         $this->trigger(self::ECHO_TEXT,$event);
     }
@@ -169,16 +172,20 @@ class ApiWechatsModel extends WechatsModel
      */
     private function checkSignature($timestamp,$nonce,$signature)
     {
-
-        $token  = yii::$app->params['wechat']['token']; //微信服务端和本地都商量好的token
+        //1.取出微信服务端和本地都商量好的token
+        $token  = yii::$app->params['wechat']['token']; 
 
         //2.将timestamo,nonce,token按字典序排序,再把三个参数拼接,用sha1加密
-        $array  = [$token,$nonce,$timestamp];//存放在数组里方便处理
-        sort($array);                       //字典排序
+        $array  = [$token,$timestamp,$nonce];//存放在数组里方便处理
+        sort($array,SORT_STRING);            //字典排序
         $tmpStr = implode('',$array);       //拼接字符串
         $tmpStr = sha1($tmpStr);            //sha1加密
 
         //3.将加密后的字符串与signature进行对比,判断该请求是否来自微信
-        return $tmpStr === $signature ? TRUE : FALSE;
+        if($tmpStr === $signature){
+            return TRUE;
+        }
+        file_put_contents('wechat_error.txt', 'tmpStr:'.$tmpStr.PHP_EOL.'signature:'.$signature);
+        return FALSE;
     }
 }

@@ -28,7 +28,7 @@ class WechatsController extends ActiveController
 
         //1.验证微信请求
         $Wechats->valid();
-
+        
         //2.处理接收到的微信请求
         $Wechats->responseMsg();
     }

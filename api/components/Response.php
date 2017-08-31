@@ -17,6 +17,7 @@ class response
     {
         //回复消息
         $info = sprintf($event->getTemplate(),$event->toUserName,$event->fromUserName,$event->createTime,$event->getMsgType(),$event->content);
+        header("Content-type:text/xml");
         echo $info;exit;
     }
 
