@@ -25,6 +25,7 @@ class SendMailController extends Controller
 
         //绑定邮件类，当事件触发的时候，调用我们刚刚定义的邮件类Mail 里面的sendMail方法
         $this->on(self::SEND_MAIL,['backend\components\Mail','sendMail']);
+//        $this->on(self::EVENT_TEST,[$this,'Send']);
     }
 
 

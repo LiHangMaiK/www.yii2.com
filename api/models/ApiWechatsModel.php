@@ -120,6 +120,8 @@ class ApiWechatsModel extends WechatsModel
         $event                  = new TextEvent();
         $event->toUserName      = $postObj->FromUserName;
         $event->fromUserName    = $postObj->ToUserName;
+        //这里可以从数据库中查询相关关键字来获取返回的信息。
+        
         $event->content         = '我的微博：http://weibo.com/yangmifansblog';
 
         $this->trigger(self::ECHO_TEXT,$event);
