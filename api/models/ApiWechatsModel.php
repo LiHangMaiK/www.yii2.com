@@ -127,12 +127,10 @@ class ApiWechatsModel extends WechatsModel
         $event->toUserName      = $postObj->FromUserName;
         $event->fromUserName    = $postObj->ToUserName;
         //这里可以从数据库中查询相关关键字来获取返回的信息。
-        $wechatReply = WechatReplyModel::find()->where(['like','input_key',$postObj->Content])->asArray()->one();
+        $wechatReply = WechatReplyModel::find()->where(['AND',['status'=>WechatReplyModel::STATUS_ACTIVE],['like','input_key',trim($postObj->Content)]])->asArray()->one();
 
         //没有查询到关键字
-        if(!$wechatReply){
-            echo 'success';exit();
-        }
+        if(!$wechatReply) $this->showError();
 
         $event->content         = $wechatReply['result_content'];
 
@@ -202,5 +200,9 @@ class ApiWechatsModel extends WechatsModel
         }
         file_put_contents('wechat_error.txt', 'tmpStr:'.$tmpStr.PHP_EOL.'signature:'.$signature);
         return FALSE;
+    }
+
+    private function showError(){
+        echo 'success';exit();
     }
 }
