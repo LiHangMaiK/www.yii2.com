@@ -54,8 +54,13 @@ class ApiWechatsModel extends WechatsModel
         //1.获取到微信推送过来的POST数据(xml格式),注意不是普通POST数据，而是元数据,要用$GLOBALS['HTTP_RAW_POST_DATA']接收。
         //yii2默认POST是要经过CSRF验证的，这里微信不会带CSRF的cookie，所以要先禁用CSRF。
         $postArr = yii::$app->request->getRawBody();
-        //解析xml成对象
-        $postObj = simplexml_load_string($postArr);
+
+        //解析xml成xml对象
+        $xmlObj = simplexml_load_string($postArr, 'SimpleXMLElement', LIBXML_NOCDATA);
+
+        //转换成普通对象
+        $postObj = json_decode(json_encode($xmlObj));
+
         //2.处理消息类型，并设置回复类型和内容
         switch (strtolower($postObj->MsgType)){
             case 'event':
@@ -122,8 +127,16 @@ class ApiWechatsModel extends WechatsModel
         $event->toUserName      = $postObj->FromUserName;
         $event->fromUserName    = $postObj->ToUserName;
         //这里可以从数据库中查询相关关键字来获取返回的信息。
-        $wechatReply = WechatReplyModel::find()->where(['AND',['status'=>WechatReplyModel::STATUS_ACTIVE],['like','input_key',$postObj->content]])->asArray()->one();
+        $wechatReply = WechatReplyModel::find()->where(['like','input_key',$postObj->Content])->asArray()->one();
+
+        //没有查询到关键字
+        if(!$wechatReply){
+            echo 'success';exit();
+        }
+
         $event->content         = $wechatReply['result_content'];
+
+        //触发返回文本事件
         $this->trigger(self::ECHO_TEXT,$event);
     }
 
