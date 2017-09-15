@@ -34,9 +34,9 @@ class WechatReplyModel extends ActiveRecord
     {
         return [
             [['status'], 'integer'],
-            [['result_content', 'add_time'], 'required'],
+            [['result_content'], 'required'],
             [['result_content'], 'string'],
-            [['add_time'], 'safe'],
+            ['add_time','default','value'=>date('Y-m-d H:i:s')],
             [['input_key'], 'string', 'max' => 50],
         ];
     }
