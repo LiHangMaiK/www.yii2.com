@@ -16,6 +16,9 @@ use yii\db\ActiveRecord;
  */
 class WechatReplyModel extends ActiveRecord
 {
+    //启用状态
+    const STATUS_ACTIVE = 1;
+
     /**
      * @inheritdoc
      */

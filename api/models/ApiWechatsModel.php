@@ -7,13 +7,14 @@
  */
 namespace api\models;
 
+use common\models\WechatReplyModel;
 use yii;
 use common\models\WechatsModel;
 use api\components\event\TextEvent;
 
 class ApiWechatsModel extends WechatsModel
 {
-    const ECHO_TEXT = 'echo_text';
+    const ECHO_TEXT     = 'echo_text';//设置返回文本事件
 
     public function init()
     {
@@ -121,9 +122,8 @@ class ApiWechatsModel extends WechatsModel
         $event->toUserName      = $postObj->FromUserName;
         $event->fromUserName    = $postObj->ToUserName;
         //这里可以从数据库中查询相关关键字来获取返回的信息。
-        
-        $event->content         = '我的微博：http://weibo.com/yangmifansblog';
-
+        $wechatReply = WechatReplyModel::find()->where(['AND',['status'=>WechatReplyModel::STATUS_ACTIVE],['like','input_key',$postObj->content]])->asArray()->one();
+        $event->content         = $wechatReply['result_content'];
         $this->trigger(self::ECHO_TEXT,$event);
     }
 
