@@ -58,8 +58,11 @@ class ApiWechatsModel extends WechatsModel
     /**
      * 获取微信服务器IP地址
      */
-    public static function getWechatServerIp(){
-        $url = 'https://api.weixin.qq.com/cgi-bin/getcallbackip?access_token=';
+    public function getWechatServerIp(){
+        $url = 'https://api.weixin.qq.com/cgi-bin/getcallbackip?access_token='.$this->getWechatAccessToken();
+        $output     = yii::$app->helper->getCurlOutput($url);
+        $serverIP   = json_decode($output,true);
+        print_r($serverIP);die;
     }
 
     /**
