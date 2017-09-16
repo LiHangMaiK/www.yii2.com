@@ -23,7 +23,7 @@ class WechatsController extends ActiveController
      * 微信消息入口
      */
     public function actionWechatAccess()
-    {echo 1;die;
+    {
         //创建模型
         $Wechats = new ApiWechatsModel();
 
