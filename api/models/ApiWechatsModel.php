@@ -15,6 +15,7 @@ use api\components\event\TextEvent;
 class ApiWechatsModel extends WechatsModel
 {
     const ECHO_TEXT     = 'echo_text';//设置返回文本事件
+    public $_AccessToken;
 
     /**
      * 初始化模型
@@ -29,29 +30,40 @@ class ApiWechatsModel extends WechatsModel
      * 获取微信accessToken
      * @return string
      */
-    public static function getWechatAccessToken(){
+    public function getWechatAccessToken(){
 
-        //使用redis缓存
-        $cache = yii::$app->cache;
+        if($this->_AccessToken === false){
 
-        //获取
-        $accessToken = $cache->getOrSet('wechat.AccessToken', function () {
-            //需要的参数
-            $appId      = yii::$app->params['wechat.appId'];
-            $appSecret  = yii::$app->params['wechat.appSecret'];
-            $url        = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appId&secret=$appSecret";
+            //使用redis
+            $cache = yii::$app->cache;
 
-            //获取AccessToken
-            $output = yii::$app->helper->getCurlOutput($url);
+            //从redis缓存中去取值
+            $this->_AccessToken = $cache->getOrSet('wechat.AccessToken', function () {
+                //需要的参数
+                $appId      = yii::$app->params['wechat.appId'];
+                $appSecret  = yii::$app->params['wechat.appSecret'];
+                $url        = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appId&secret=$appSecret";
 
-            //处理成数组
-            $result = json_decode($output,true);
+                //获取AccessToken
+                $output = yii::$app->helper->getCurlOutput($url);
 
-            //返回AccessToken
-            return $result['access_token'];
-        },7200);
+                //处理成数组
+                $result = json_decode($output,true);
 
-        return $accessToken;
+                //返回AccessToken
+                return $result['access_token'];
+
+            },7200);
+
+        }
+        return $this->_AccessToken;
+    }
+
+    /**
+     * 获取微信服务器IP地址
+     */
+    public static function getWechatServerIp(){
+        $url = 'https://api.weixin.qq.com/cgi-bin/getcallbackip?access_token=';
     }
 
     /**
@@ -234,6 +246,8 @@ class ApiWechatsModel extends WechatsModel
         return FALSE;
     }
 
+
+    //微信返回
     private function showError(){
         echo 'success';exit();
     }
