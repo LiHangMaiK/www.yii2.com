@@ -40,6 +40,8 @@ class WechatsController extends ActiveController
         
         $data['accessToken'] = $Wechats->getWechatAccessToken();
 
+        $data['serverIp'] = $Wechats->getWechatServerIp();
+
         return $data;
     }
 
