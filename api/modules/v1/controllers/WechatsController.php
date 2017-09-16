@@ -37,8 +37,8 @@ class WechatsController extends ActiveController
 
         //创建模型
         $Wechats = new ApiWechatsModel();
-
-        $data['accessToken'] = $Wechats->_AccessToken;
+        
+        $data['accessToken'] = $Wechats->getWechatAccessToken();
 
         return $data;
     }

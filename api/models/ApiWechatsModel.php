@@ -7,15 +7,14 @@
  */
 namespace api\models;
 
-use common\models\WechatReplyModel;
 use yii;
+use common\models\WechatReplyModel;
 use common\models\WechatsModel;
 use api\components\event\TextEvent;
 
 class ApiWechatsModel extends WechatsModel
 {
-    const ECHO_TEXT     = 'echo_text';//设置返回文本事件
-    public $_AccessToken;
+    const ECHO_TEXT         = 'echo_text';//设置返回文本事件
 
     /**
      * 初始化模型
@@ -32,13 +31,11 @@ class ApiWechatsModel extends WechatsModel
      */
     public function getWechatAccessToken(){
 
-        if($this->_AccessToken === false){
-
             //使用redis
             $cache = yii::$app->cache;
 
             //从redis缓存中去取值
-            $this->_AccessToken = $cache->getOrSet('wechat.AccessToken', function () {
+            $AccessToken = $cache->getOrSet('wechat.AccessToken', function () {
                 //需要的参数
                 $appId      = yii::$app->params['wechat.appId'];
                 $appSecret  = yii::$app->params['wechat.appSecret'];
@@ -55,8 +52,7 @@ class ApiWechatsModel extends WechatsModel
 
             },7200);
 
-        }
-        return $this->_AccessToken;
+        return $AccessToken;
     }
 
     /**
