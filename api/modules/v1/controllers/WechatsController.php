@@ -8,7 +8,6 @@
 
 namespace api\modules\v1\controllers;
 
-use yii;
 use yii\rest\ActiveController;
 use api\models\ApiWechatsModel;
 
@@ -35,28 +34,8 @@ class WechatsController extends ActiveController
     }
 
     public function actionGetAccessToken(){
-
-        //使用redis缓存
-        $cache = yii::$app->cache;
-
-        //获取
-        $accessToken = $cache->getOrSet('wechat.AccessToken', function () {
-            //需要的参数
-            $appId      = yii::$app->params['wechat.appId'];
-            $appSecret  = yii::$app->params['wechat.appSecret'];
-            $url        = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appId&secret=$appSecret";
-
-            //获取AccessToken
-            $output = yii::$app->helper->getCurlOutput($url);
-
-            //处理成数组
-            $result = json_decode($output,true);
-
-            //返回AccessToken
-            return $result['access_token'];
-        },7200);
-
-        
+        $accessToken = ApiWechatsModel::getWechatAccessToken();
+        echo $accessToken;
     }
 
 }
