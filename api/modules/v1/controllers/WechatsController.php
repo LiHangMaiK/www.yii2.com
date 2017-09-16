@@ -8,6 +8,7 @@
 
 namespace api\modules\v1\controllers;
 
+use yii;
 use yii\rest\ActiveController;
 use api\models\ApiWechatsModel;
 
@@ -22,7 +23,7 @@ class WechatsController extends ActiveController
      * 微信消息入口
      */
     public function actionWechatAccess()
-    {
+    {echo 1;die;
         //创建模型
         $Wechats = new ApiWechatsModel();
 
@@ -33,6 +34,19 @@ class WechatsController extends ActiveController
         $Wechats->responseMsg();
     }
 
+    public function actionGetAccessToken(){
+        $appId      = yii::$app->params['wechat.appId'];
+        $appSecret  = yii::$app->params['wechat.appSecret'];
 
+        $url        = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appId&secret=$appSecret";
+        $output = yii::$app->helper->getCurlOutput($url);
+
+        $result = json_decode($output,true);
+
+        $cache = yii::$app->cache;
+
+        
+
+    }
 
 }

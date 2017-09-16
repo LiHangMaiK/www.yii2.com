@@ -9,7 +9,14 @@ return [
     'components' => [
         //缓存配置
         'cache' => [
-            'class' => 'yii\caching\FileCache',
+//            'class' => 'yii\caching\FileCache',
+            'class' => 'yii\redis\Cache',
+        ],
+        'redis' => [
+            'class' => 'yii\redis\Connection',
+            'hostname' => 'localhost',
+            'port' => 7200,
+            'database' => 0,
         ],
         //语言包配置
         'i18n' => [
@@ -33,13 +40,15 @@ return [
             "class" => 'yii\rbac\DbManager',
             "defaultRoles" => ["guest"],
         ],
+
         //自定义全局类(common\components)
         //yii::$app->helper->property;
         'helper' => [
-            'class' => 'common\components\PrintHelper',
+            'class' => 'common\components\Helper',
             //自定义属性，如：
 //            'property' => '123',
         ],
+
         //邮件发送组件(swiftMailer)
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
