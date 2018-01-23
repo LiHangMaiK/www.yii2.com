@@ -79,7 +79,7 @@ class ApiWechatsModel extends WechatsModel
         
         if(!$nonce || !$timestamp || !$signature){
             file_put_contents('request_error.txt', $nonce.PHP_EOL.$timestamp.PHP_EOL.$signature);
-            echo 'success';exit();
+            echo 'request param';exit();
         }
         
         //2.验证传入参数
