@@ -7,17 +7,6 @@ return [
     //配置时区
     'timeZone' => 'Asia/Chongqing',
     'components' => [
-        //缓存配置
-        'cache' => [
-//            'class' => 'yii\caching\FileCache',
-            'class' => 'yii\redis\Cache',
-        ],
-        'redis' => [
-            'class' => 'yii\redis\Connection',
-            'hostname' => 'localhost',
-            'port' => 7200,
-            'database' => 0,
-        ],
         //语言包配置
         'i18n' => [
             'translations' => [
