@@ -125,9 +125,9 @@ class ApiWechatsModel extends WechatsModel
 //            case 'shortvideo':
 //                $this->responseForShortVideo($postObj);//小视频消息
 //                break;
-//            case 'location':
-//                $this->responseForLocation($postObj);//地理位置消息
-//                break;
+            case 'location':
+                $this->responseForLocation($postObj);//地理位置消息
+                break;
 //            case 'link':
 //                $this->responseForLink($postObj);//链接消息
 //                break;
