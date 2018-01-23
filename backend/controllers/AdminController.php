@@ -71,7 +71,6 @@ class AdminController extends Controller
      */
     public function actionIndex()
     {
-
         //此方法简单，但是方法多了就不行，要用行为来解决。
 //        if (!Yii::$app->user->can('/admin/index')) {
 //            throw new \yii\web\ForbiddenHttpException("没权限访问.");
