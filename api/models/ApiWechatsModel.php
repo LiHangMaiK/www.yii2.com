@@ -81,12 +81,16 @@ class ApiWechatsModel extends WechatsModel
             file_put_contents('request_error.txt', $nonce.PHP_EOL.$timestamp.PHP_EOL.$signature);
             echo 'request param';exit();
         }
-        
+
         //2.验证传入参数
         if($this->checkSignature($timestamp,$nonce,$signature)){
-            echo $echoStr ? $echoStr : '';//是否第一次验证
+        	//是否第一次验证
+        	if($echoStr){
+        		echo $echoStr;exit();
+        	}
             return TRUE;
         }
+        
         throw new \yii\web\ForbiddenHttpException;//验证失败
     }
 
@@ -237,7 +241,7 @@ class ApiWechatsModel extends WechatsModel
         sort($array,SORT_STRING);            //字典排序
         $tmpStr = implode('',$array);       //拼接字符串
         $tmpStr = sha1($tmpStr);            //sha1加密
-
+        
         //3.将加密后的字符串与signature进行对比,判断该请求是否来自微信
         if($tmpStr === $signature){
             return TRUE;
